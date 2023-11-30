@@ -9,18 +9,19 @@ namespace WinrarActivator
         private static string AppName = "WinRaR";
         private static string WinRaRPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\" + AppName;
         private static string RarregPath = Path.Combine(WinRaRPath, "rarreg.key");
-        static void Main()
+
+        private static void Main()
         {
             if (!File.Exists(Path.Combine(WinRaRPath, "Uninstall.exe")))
             {
-                MessageBox.Show("WinRAR not found", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("WinRAR not found :C", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return;
             }
 
             if (!File.Exists(RarregPath))
             {
-                if (MessageBox.Show("Are you sure you want to activate " + AppName, Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+                if (MessageBox.Show("Are you sure you want to activate " + AppName, Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes) return;
 
                 using (StreamWriter sw = File.CreateText(RarregPath))
                 {
@@ -37,15 +38,15 @@ namespace WinrarActivator
                     sw.WriteLine("64416495d4c55a0cc82d402110498da970812063934815d81470829275");
                 }
 
-                MessageBox.Show(AppName + " activated",Application.ProductName,MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show(AppName + " activated", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 if (MessageBox.Show("Are you sure you want to deactivate " + AppName, Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
 
                 File.Delete(RarregPath);
-                
-                MessageBox.Show(AppName+ " deactivated", Application.ProductName,MessageBoxButtons.OK,MessageBoxIcon.Information);
+
+                MessageBox.Show(AppName + " deactivated", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
